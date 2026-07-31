@@ -5,6 +5,13 @@ experiments for the India Wikipedia multilingual BPE assignment. The featured
 result is the faithful-Markdown English–Hindi–Telugu–Kannada tokenizer with a
 10,000-entry vocabulary, exact round-trip validation, and score **26,911.69**.
 
+## Live submission
+
+- **Widget:** https://phenomenal-licorice-32aca8.netlify.app/
+- **Final tokenizer:** https://phenomenal-licorice-32aca8.netlify.app/data/final/kannada/tokenizer.json
+- **Final metrics:** https://phenomenal-licorice-32aca8.netlify.app/data/final/kannada/metrics.json
+- **Maithili experiment:** https://phenomenal-licorice-32aca8.netlify.app/data/experiments/maithili/tokenizer.json
+
 The original custom approach remains published in `public/data`. Separate,
 non-overwriting faithful-Markdown Hugging Face BPE experiments for Kannada and
 Maithili are maintained under `approaches/` and `experiments/`. See
