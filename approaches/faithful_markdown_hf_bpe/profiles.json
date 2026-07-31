@@ -1,0 +1,12 @@
+{
+  "kannada": {
+    "languages": ["en", "hi", "te", "kn"],
+    "training_weights": {"en": 1, "hi": 1, "te": 2, "kn": 3},
+    "output": "experiments/faithful_markdown_kannada"
+  },
+  "maithili": {
+    "languages": ["en", "hi", "te", "mai"],
+    "training_weights": {"en": 3, "hi": 4, "te": 4, "mai": 2},
+    "output": "experiments/faithful_markdown_maithili"
+  }
+}

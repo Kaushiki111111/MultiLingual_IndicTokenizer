@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A reproducible 10,000-token multilingual BPE tokenizer for English, Hindi, Telugu, and Kannada Wikipedia pages.">
+  <title>IndicToken Lab — Multilingual BPE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <header class="site-header">
+    <a class="brand" href="#overview" aria-label="IndicToken Lab home"><span class="brand-mark">IT</span><span>IndicToken <b>Lab</b></span></a>
+    <nav aria-label="Main navigation">
+      <a href="#results">Results</a><a href="#playground">Playground</a><a href="#compare">Compare</a><a href="#method">Method</a>
+    </nav>
+    <a class="nav-cta" href="#downloads">Get tokenizer <span>↓</span></a>
+  </header>
+
+  <main id="overview">
+    <section class="hero section-shell">
+      <div class="hero-copy">
+        <div class="status-line"><span class="live-dot"></span> Validated final candidate <span class="status-sep">/</span> Kannada profile</div>
+        <h1>One vocabulary.<br><span>Four languages.</span><br>Nearly equal cost.</h1>
+        <p class="hero-lede">A faithful, reversible 10,000-token BPE trained on the complete India Wikipedia pages in English, Hindi, Telugu, and Kannada.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#playground">Try the tokenizer <span>→</span></a>
+          <a class="button secondary" href="data/final/kannada/tokenizer.json" download>Download JSON</a>
+        </div>
+        <div class="trust-row"><span>10,000 vocab</span><span>Exact round trip</span><span>Open artifacts</span></div>
+      </div>
+      <aside class="score-orbit" aria-label="Featured assignment score">
+        <div class="orbit-ring"></div>
+        <div class="score-core"><span>SELF SCORE</span><strong id="heroScore">—</strong><small>1000 / fertility spread</small></div>
+        <div class="orbit-note note-a"><span>SPREAD</span><b id="heroSpread">—</b></div>
+        <div class="orbit-note note-b"><span>ROUND TRIP</span><b>EXACT ✓</b></div>
+      </aside>
+    </section>
+
+    <section class="ticker" aria-label="Project highlights"><div><span>EN</span> English <i>•</i><span>HI</span> हिन्दी <i>•</i><span>TE</span> తెలుగు <i>•</i><span>KN</span> ಕನ್ನಡ <i>•</i><b>Shared BPE vocabulary</b><i>•</i><b>Faithful Markdown</b></div></section>
+
+    <section id="results" class="section-shell section-block">
+      <div class="section-heading"><div><span class="kicker">01 / FINAL RESULT</span><h2>Fairness you can inspect.</h2></div><p>The score rises as the gap between the most and least expensive language shrinks. Every value below comes from the downloadable tokenizer and frozen corpus.</p></div>
+      <div class="metric-grid" id="metricGrid"></div>
+      <div class="results-layout">
+        <article class="surface chart-card">
+          <div class="surface-head"><div><h3>Fertility by language</h3><p>BPE tokens per faithful unit</p></div><span class="verified">● VERIFIED</span></div>
+          <div id="fertilityChart" class="fertility-chart"></div>
+          <div class="chart-scale"><span>0.60</span><span>0.64</span><span>0.68</span></div>
+        </article>
+        <article class="surface score-proof">
+          <span class="kicker">THE CALCULATION</span>
+          <div class="formula"><span>1000</span><i></i><span id="formulaSpread">—</span></div>
+          <div class="equals">= <strong id="formulaScore">—</strong></div>
+          <p>Hindi is currently the maximum and English the minimum. The difference is only <b id="proofSpread">—</b>.</p>
+        </article>
+      </div>
+      <div class="surface table-card"><div class="surface-head"><div><h3>Complete score inputs</h3><p>Sorted from highest fertility to lowest</p></div><span class="mono" id="builtAt">—</span></div><div class="table-wrap"><table><thead><tr><th>Rank</th><th>Language</th><th>BPE tokens</th><th>Faithful units</th><th>Vocabulary used</th><th>Fertility X</th><th>Constraint</th></tr></thead><tbody id="languageRows"></tbody></table></div></div>
+    </section>
+
+    <section id="playground" class="section-shell section-block">
+      <div class="section-heading"><div><span class="kicker">02 / LIVE PLAYGROUND</span><h2>See every token boundary.</h2></div><p>Paste English or Indic text. The browser applies the published Metaspace and BPE merge rules directly from the final tokenizer.</p></div>
+      <div class="playground surface">
+        <div class="input-panel">
+          <label for="tokenizerInput">INPUT TEXT</label>
+          <textarea id="tokenizerInput" spellcheck="false">India is a multilingual country. भारत विविधताओं का देश है। భారతదేశం వైవిధ్యమైన దేశం. ಭಾರತವು ವೈವಿಧ್ಯಮಯ ದೇಶವಾಗಿದೆ.</textarea>
+          <div class="sample-row"><span>Samples</span><button data-sample="english">English</button><button data-sample="hindi">हिन्दी</button><button data-sample="telugu">తెలుగు</button><button data-sample="kannada">ಕನ್ನಡ</button></div>
+        </div>
+        <div class="token-output">
+          <div class="token-output-head"><span>ENCODED TOKENS</span><div id="liveStats">Loading tokenizer…</div></div>
+          <div id="liveTokens" class="token-cloud"></div>
+          <div class="decode-check"><span id="decodeStatus">○</span><div><b>Browser encoding preview</b><small>Token IDs and pieces come from the published 10k vocabulary.</small></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="compare" class="section-shell section-block">
+      <div class="section-heading"><div><span class="kicker">03 / EXPERIMENTS</span><h2>Every approach, kept separate.</h2></div><p>We preserve earlier methods as baselines. Scores are only directly comparable when corpus, metric, and language set match.</p></div>
+      <div id="approachCards" class="approach-grid"></div>
+      <article class="surface maithili-callout"><div><span class="kicker">FOURTH-LANGUAGE STUDY</span><h3>Kannada vs Maithili</h3><p>Both use faithful Markdown, exact round trips, standard Hugging Face BPE, and the same frozen English–Hindi–Telugu pages. The fourth-language corpus and training weights differ.</p></div><div class="duel"><div><span>Kannada</span><strong id="knScore">—</strong><small>current best</small></div><i>vs</i><div><span>Maithili</span><strong id="maiScore">—</strong><small>valid experiment</small></div></div></article>
+    </section>
+
+    <section id="method" class="section-shell section-block">
+      <div class="section-heading"><div><span class="kicker">04 / METHODOLOGY</span><h2>Reproducible by design.</h2></div><p>No hidden corpus and no proprietary encoder. The snapshots, hashes, training weights, model, and evaluation inputs are all retained.</p></div>
+      <div class="method-flow"><article><span>01</span><h3>Fetch</h3><p>Wikipedia REST HTML for the full India article in each language.</p></article><i>→</i><article><span>02</span><h3>Preserve</h3><p>Convert visible HTML to Markdown while retaining links, tables, references, and symbols.</p></article><i>→</i><article><span>03</span><h3>Train</h3><p>One shared 10,000-entry BPE with Metaspace and no lossy normalizer.</p></article><i>→</i><article><span>04</span><h3>Verify</h3><p>Require exact decode(encode(text)) equality and calculate the fertility spread.</p></article></div>
+      <div class="principles"><article class="surface"><span>VOCABULARY</span><strong>10,000</strong><p>Four special tokens plus one shared learned vocabulary.</p></article><article class="surface"><span>TEXT FIDELITY</span><strong>Exact</strong><p>Punctuation, URLs, brackets, numbers, and whitespace round-trip.</p></article><article class="surface"><span>NORMALIZER</span><strong>None</strong><p>Avoids Unicode transformations that alter visible source text.</p></article></div>
+    </section>
+
+    <section id="downloads" class="section-shell section-block download-section">
+      <span class="kicker">05 / ARTIFACTS</span><h2>Take the result apart.</h2><p>Download the exact final model, reproduce its metrics, or inspect the alternative experiments.</p>
+      <div id="downloadGrid" class="download-grid"></div>
+    </section>
+  </main>
+
+  <footer><div class="brand"><span class="brand-mark">IT</span><span>IndicToken <b>Lab</b></span></div><p>Built for transparent multilingual tokenization research.</p><a href="#overview">Back to top ↑</a></footer>
+  <div id="errorBanner" class="error-banner hidden"></div>
+  <script src="app.js"></script>
+</body>
+</html>

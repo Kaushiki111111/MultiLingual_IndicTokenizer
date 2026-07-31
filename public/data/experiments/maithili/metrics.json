@@ -1,0 +1,92 @@
+{
+  "approach": "faithful_markdown_huggingface_metaspace_bpe",
+  "experiment": "faithful_markdown_maithili",
+  "built_at_utc": "2026-07-31T19:34:10+00:00",
+  "vocab_size_requested": 10000,
+  "vocab_size_actual": 10000,
+  "special_tokens": [
+    "<pad>",
+    "<unk>",
+    "<bos>",
+    "<eos>"
+  ],
+  "normalizer": null,
+  "pretokenizer": "Metaspace(replacement=▁, prepend_scheme=never)",
+  "training_weights": {
+    "en": 3,
+    "hi": 4,
+    "te": 4,
+    "mai": 2
+  },
+  "round_trip_exact_valid": true,
+  "round_trip_visible_valid": true,
+  "round_trip_failures": [],
+  "score_metric": "faithful_unit",
+  "summary": {
+    "max_x": 0.7468208092485549,
+    "min_x": 0.6041408216604237,
+    "spread": 0.14267998758813116,
+    "raw_score": 7008.691386255665,
+    "english_x_le_1_2": true,
+    "english_penalty": 1.0,
+    "english_adjusted_score": 7008.691386255665,
+    "hindi_penalty": 1.0,
+    "hindi_adjusted_score": 7008.691386255665,
+    "sorted_by_x_desc": [
+      "Maithili",
+      "Telugu",
+      "English",
+      "Hindi"
+    ]
+  },
+  "per_language": [
+    {
+      "code": "en",
+      "language": "English",
+      "wiki_title": "India",
+      "bpe_tokens": 110437,
+      "unique_vocab_tokens_used": 5531,
+      "faithful_units": 180338,
+      "fertility_x": 0.61238895851124,
+      "round_trip_exact_valid": true,
+      "round_trip_visible_valid": true,
+      "corpus_sha256": "bdc95fb4b1d7dc54841861cc3b77ee741ea93ab6934baec8f3b13c46cc4c11bc"
+    },
+    {
+      "code": "hi",
+      "language": "Hindi",
+      "wiki_title": "भारत",
+      "bpe_tokens": 50160,
+      "unique_vocab_tokens_used": 4823,
+      "faithful_units": 83027,
+      "fertility_x": 0.6041408216604237,
+      "round_trip_exact_valid": true,
+      "round_trip_visible_valid": true,
+      "corpus_sha256": "30a04d9604b73625d11b3d99f8fc40cdc389f6adfbd7ec314a3dd4c8c665adc8"
+    },
+    {
+      "code": "te",
+      "language": "Telugu",
+      "wiki_title": "భారతదేశం",
+      "bpe_tokens": 23524,
+      "unique_vocab_tokens_used": 2886,
+      "faithful_units": 33730,
+      "fertility_x": 0.6974206937444412,
+      "round_trip_exact_valid": true,
+      "round_trip_visible_valid": true,
+      "corpus_sha256": "4092b91fa44ccf14864ca0c47467e7868003f399fc19da938f77d7017261f03c"
+    },
+    {
+      "code": "mai",
+      "language": "Maithili",
+      "wiki_title": "भारत",
+      "bpe_tokens": 3876,
+      "unique_vocab_tokens_used": 985,
+      "faithful_units": 5190,
+      "fertility_x": 0.7468208092485549,
+      "round_trip_exact_valid": true,
+      "round_trip_visible_valid": true,
+      "corpus_sha256": "935f67e1c0530e30c5bbfa427669c788dfc8925569c55b2660a145acdacd070c"
+    }
+  ]
+}

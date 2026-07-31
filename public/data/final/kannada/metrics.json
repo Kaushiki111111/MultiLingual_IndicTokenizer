@@ -1,0 +1,92 @@
+{
+  "approach": "faithful_markdown_huggingface_metaspace_bpe",
+  "experiment": "faithful_markdown_kannada",
+  "built_at_utc": "2026-07-31T19:34:10+00:00",
+  "vocab_size_requested": 10000,
+  "vocab_size_actual": 10000,
+  "special_tokens": [
+    "<pad>",
+    "<unk>",
+    "<bos>",
+    "<eos>"
+  ],
+  "normalizer": null,
+  "pretokenizer": "Metaspace(replacement=▁, prepend_scheme=never)",
+  "training_weights": {
+    "en": 1,
+    "hi": 1,
+    "te": 2,
+    "kn": 3
+  },
+  "round_trip_exact_valid": true,
+  "round_trip_visible_valid": true,
+  "round_trip_failures": [],
+  "score_metric": "faithful_unit",
+  "summary": {
+    "max_x": 0.6718778228768955,
+    "min_x": 0.6347192494094422,
+    "spread": 0.037158573467453215,
+    "raw_score": 26911.689730928152,
+    "english_x_le_1_2": true,
+    "english_penalty": 1.0,
+    "english_adjusted_score": 26911.689730928152,
+    "hindi_penalty": 1.0,
+    "hindi_adjusted_score": 26911.689730928152,
+    "sorted_by_x_desc": [
+      "Hindi",
+      "Kannada",
+      "Telugu",
+      "English"
+    ]
+  },
+  "per_language": [
+    {
+      "code": "en",
+      "language": "English",
+      "wiki_title": "India",
+      "bpe_tokens": 114464,
+      "unique_vocab_tokens_used": 5080,
+      "faithful_units": 180338,
+      "fertility_x": 0.6347192494094422,
+      "round_trip_exact_valid": true,
+      "round_trip_visible_valid": true,
+      "corpus_sha256": "bdc95fb4b1d7dc54841861cc3b77ee741ea93ab6934baec8f3b13c46cc4c11bc"
+    },
+    {
+      "code": "hi",
+      "language": "Hindi",
+      "wiki_title": "भारत",
+      "bpe_tokens": 55784,
+      "unique_vocab_tokens_used": 4118,
+      "faithful_units": 83027,
+      "fertility_x": 0.6718778228768955,
+      "round_trip_exact_valid": true,
+      "round_trip_visible_valid": true,
+      "corpus_sha256": "30a04d9604b73625d11b3d99f8fc40cdc389f6adfbd7ec314a3dd4c8c665adc8"
+    },
+    {
+      "code": "te",
+      "language": "Telugu",
+      "wiki_title": "భారతదేశం",
+      "bpe_tokens": 21846,
+      "unique_vocab_tokens_used": 3195,
+      "faithful_units": 33730,
+      "fertility_x": 0.6476726949303291,
+      "round_trip_exact_valid": true,
+      "round_trip_visible_valid": true,
+      "corpus_sha256": "4092b91fa44ccf14864ca0c47467e7868003f399fc19da938f77d7017261f03c"
+    },
+    {
+      "code": "kn",
+      "language": "Kannada",
+      "wiki_title": "ಭಾರತ",
+      "bpe_tokens": 7458,
+      "unique_vocab_tokens_used": 1964,
+      "faithful_units": 11409,
+      "fertility_x": 0.6536944517486195,
+      "round_trip_exact_valid": true,
+      "round_trip_visible_valid": true,
+      "corpus_sha256": "65e8c9c89307a2afbed142f75910c75fb49d5794f69c007fe5178e1f4738491e"
+    }
+  ]
+}

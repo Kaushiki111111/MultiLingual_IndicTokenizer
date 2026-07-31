@@ -1,0 +1,5 @@
+beautifulsoup4>=4.12,<5
+lxml>=5,<7
+markdownify>=0.13,<2
+requests>=2.31,<3
+tokenizers>=0.19,<1

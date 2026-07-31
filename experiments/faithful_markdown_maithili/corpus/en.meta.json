@@ -1,0 +1,12 @@
+{
+  "code": "en",
+  "language": "English",
+  "wiki_title": "India",
+  "source_url": "https://en.wikipedia.org/wiki/India",
+  "rest_html_url": "https://en.wikipedia.org/api/rest_v1/page/html/India",
+  "fetched_at_utc": "2026-07-31T19:33:20+00:00",
+  "response_etag": "W/\"1366778862/8e6874a0-8cdf-11f1-b9c7-c577c9b5840d/view/html\"",
+  "response_last_modified": "Fri, 31 Jul 2026 12:57:52 GMT",
+  "characters": 581834,
+  "sha256": "bdc95fb4b1d7dc54841861cc3b77ee741ea93ab6934baec8f3b13c46cc4c11bc"
+}

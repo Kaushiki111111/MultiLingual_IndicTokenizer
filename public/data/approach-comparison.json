@@ -1,0 +1,46 @@
+{
+  "warning": "Scores are comparable only when corpus_mode, metric, and language set match.",
+  "missing_sources": [],
+  "rows": [
+    {
+      "approach": "custom_cleaned_kannada",
+      "corpus_mode": "cleaned_plaintext",
+      "metric": "whitespace_word",
+      "languages": "en,hi,te,kn",
+      "vocab_size": 10000,
+      "spread": 0.7527279503409174,
+      "raw_score": 1328.5012195270426,
+      "round_trip": true
+    },
+    {
+      "approach": "custom_cleaned_kannada",
+      "corpus_mode": "cleaned_plaintext",
+      "metric": "faithful_unit",
+      "languages": "en,hi,te,kn",
+      "vocab_size": 10000,
+      "spread": 0.6934570769483369,
+      "raw_score": 1442.050320404331,
+      "round_trip": true
+    },
+    {
+      "approach": "faithful_markdown_kannada",
+      "corpus_mode": "faithful_markdown",
+      "metric": "faithful_unit",
+      "languages": "en,hi,te,kn",
+      "vocab_size": 10000,
+      "spread": 0.037158573467453215,
+      "raw_score": 26911.689730928152,
+      "round_trip": true
+    },
+    {
+      "approach": "faithful_markdown_maithili",
+      "corpus_mode": "faithful_markdown",
+      "metric": "faithful_unit",
+      "languages": "en,hi,te,mai",
+      "vocab_size": 10000,
+      "spread": 0.14267998758813116,
+      "raw_score": 7008.691386255665,
+      "round_trip": true
+    }
+  ]
+}

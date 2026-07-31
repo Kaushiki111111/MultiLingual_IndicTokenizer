@@ -1,0 +1,12 @@
+{
+  "code": "hi",
+  "language": "Hindi",
+  "wiki_title": "भारत",
+  "source_url": "https://hi.wikipedia.org/wiki/%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4",
+  "rest_html_url": "https://hi.wikipedia.org/api/rest_v1/page/html/%E0%A4%AD%E0%A4%BE%E0%A4%B0%E0%A4%A4",
+  "fetched_at_utc": "2026-07-31T19:33:23+00:00",
+  "response_etag": "W/\"6593748/d9a86797-8c92-11f1-a16c-edda570cfec3/view/html\"",
+  "response_last_modified": "Thu, 30 Jul 2026 13:05:48 GMT",
+  "characters": 253045,
+  "sha256": "30a04d9604b73625d11b3d99f8fc40cdc389f6adfbd7ec314a3dd4c8c665adc8"
+}

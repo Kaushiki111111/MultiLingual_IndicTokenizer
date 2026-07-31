@@ -1,0 +1,5 @@
+approach,corpus_mode,metric,languages,vocab_size,spread,raw_score,round_trip
+custom_cleaned_kannada,cleaned_plaintext,whitespace_word,"en,hi,te,kn",10000,0.7527279503409174,1328.5012195270426,True
+custom_cleaned_kannada,cleaned_plaintext,faithful_unit,"en,hi,te,kn",10000,0.6934570769483369,1442.050320404331,True
+faithful_markdown_kannada,faithful_markdown,faithful_unit,"en,hi,te,kn",10000,0.037158573467453215,26911.689730928152,True
+faithful_markdown_maithili,faithful_markdown,faithful_unit,"en,hi,te,mai",10000,0.14267998758813116,7008.691386255665,True

@@ -1,0 +1,1997 @@
+{
+  "assignment": "India Wikipedia multilingual BPE tokenizer fertility fairness",
+  "built_at_utc": "2026-07-31T19:25:32+00:00",
+  "build_mode": "live_wikipedia_full_articles",
+  "evaluation_mode": "assignment_full_article_text",
+  "validation": {
+    "visible_non_whitespace_round_trip_valid": true,
+    "exact_whitespace_round_trip_valid": false,
+    "contract": "The decoded output must contain exactly the same non-whitespace characters in the same order. Whitespace normalization is reported separately."
+  },
+  "method": {
+    "corpus": "Live Wikipedia plain-text extracts for full India article body + headings; TextExtracts/plaintext removes tables and infoboxes, and the cleaner cuts reference/see-also/external-link sections by heading.",
+    "languages": [
+      {
+        "code": "en",
+        "language": "English",
+        "wiki_title": "India",
+        "source_url": "https://en.wikipedia.org/wiki/India"
+      },
+      {
+        "code": "hi",
+        "language": "Hindi",
+        "wiki_title": "भारत",
+        "source_url": "https://hi.wikipedia.org/wiki/भारत"
+      },
+      {
+        "code": "te",
+        "language": "Telugu",
+        "wiki_title": "భారతదేశం",
+        "source_url": "https://te.wikipedia.org/wiki/భారతదేశం"
+      },
+      {
+        "code": "kn",
+        "language": "Kannada",
+        "wiki_title": "ಭಾರತ",
+        "source_url": "https://kn.wikipedia.org/wiki/ಭಾರತ"
+      }
+    ],
+    "initial_units": "Unicode grapheme/akshara-like clusters, not raw Unicode codepoints",
+    "training_weighting": "objective-guided constrained greedy BPE: candidate merges are scored by estimated reduction in fertility X, with dynamic pressure for English while X > 1.2 and for languages far above the minimum X. No text is deleted or sampled for the submitted score.",
+    "optimization_strategy": "grapheme-cluster BPE + constrained greedy merge selection + integer-ID word-frequency training + candidate configuration search",
+    "train_eval_split": "assignment metric uses full article text; held-out diagnostic separately trains on first 80% and evaluates on last 20%",
+    "why_holdout": "The held-out diagnostic is shown only as a sanity check. It helps detect whether a 10k BPE vocabulary is memorising article-specific whole words.",
+    "vocab_budget": "10000 total tokens including 4 special tokens",
+    "ratio_definition": "X = total BPE tokens after grapheme-cluster BPE encoding of the full cleaned article / whitespace word units in the same full cleaned article",
+    "faithful_unit_definition": "One contiguous Unicode letter/mark/number run, or one visible non-whitespace punctuation/symbol character.",
+    "faithful_ratio_definition": "faithful X = total BPE tokens / faithful units in the same full cleaned article",
+    "score_formula": "1000 / (max(X1..X4) - min(X1..X4))"
+  },
+  "summary": {
+    "requested_vocab_size": 10000,
+    "actual_vocab_size": 10000,
+    "special_token_count": 4,
+    "learned_token_count": 9996,
+    "merge_count": 8069,
+    "english_constraint_x_le_1_2": true,
+    "english_x": 1.1998582565556344,
+    "selected_quotas": {},
+    "optimization_strategy": "grapheme_cluster_constrained_greedy_bpe_v4_int_id_wordfreq",
+    "selected_config": "strong_late_rescue_3500_b130",
+    "max_x": 1.9525862068965518,
+    "min_x": 1.1998582565556344,
+    "delta_x": 0.7527279503409174,
+    "score": 1328.5012195270426,
+    "score_display": "1,328.50",
+    "sorted_by_x_desc": [
+      "Telugu",
+      "Hindi",
+      "Kannada",
+      "English"
+    ]
+  },
+  "faithful_unit_summary": {
+    "max_x": 1.676127060364589,
+    "min_x": 0.9826699834162521,
+    "delta_x": 0.6934570769483369,
+    "score": 1442.050320404331,
+    "score_display": "1,442.05",
+    "sorted_by_x_desc": [
+      "Hindi",
+      "Telugu",
+      "Kannada",
+      "English"
+    ]
+  },
+  "heldout_diagnostic_summary": {
+    "max_x": 2.918032786885246,
+    "min_x": 1.6865203761755485,
+    "delta_x": 1.2315124107096975,
+    "score": 812.0096811884492,
+    "score_display": "812.01",
+    "sorted_by_x_desc": [
+      "Kannada",
+      "Telugu",
+      "English",
+      "Hindi"
+    ]
+  },
+  "optimizer_diagnostics": {
+    "strategy": "grapheme_cluster_constrained_greedy_bpe_v4_int_id_wordfreq",
+    "config_name": "strong_late_rescue_3500_b130",
+    "english_max_x_constraint": 1.2,
+    "english_constraint_pass": true,
+    "learned_token_budget": 9996,
+    "base_symbol_count": 1927,
+    "merge_count": 8069,
+    "internal_training_representation": "tuple[int, ...] per unique word; pair keys are tuple[int, int]",
+    "corpus_deduplication": "per-language Counter: unique whitespace word -> frequency",
+    "unique_word_entries_by_language": {
+      "English": 3763,
+      "Hindi": 2427,
+      "Telugu": 1569,
+      "Kannada": 658
+    },
+    "total_unique_word_entries": 8417,
+    "hyperparameters": {
+      "english_boost": 130.0,
+      "fairness_strength": 5.2,
+      "worst_boost": 2.6,
+      "min_pressure": 0.02,
+      "rebuild_every": 10,
+      "constraint_start_merge": 3500
+    },
+    "selected_x_by_language": {
+      "English": 1.1998582565556344,
+      "Hindi": 1.924909113701893,
+      "Telugu": 1.9525862068965518,
+      "Kannada": 1.8801229508196722
+    },
+    "selected_english_constraint_pass": true,
+    "selected_delta_x": 0.7527279503409174,
+    "selected_score": 1328.5012195270426,
+    "progress_checkpoints": [
+      {
+        "merge_count": 1,
+        "vocab_size_so_far": 1932,
+        "x_by_language": {
+          "English": 6.349093854409234,
+          "Hindi": 3.5576031089381974,
+          "Telugu": 4.6931034482758625,
+          "Kannada": 4.770491803278689
+        },
+        "english_constraint_pass": false,
+        "max_x": 6.349093854409234,
+        "min_x": 3.5576031089381974,
+        "delta_x": 2.7914907454710365,
+        "score": 358.23152973815786
+      },
+      {
+        "merge_count": 500,
+        "vocab_size_so_far": 2431,
+        "x_by_language": {
+          "English": 3.241368836691303,
+          "Hindi": 3.197317287200702,
+          "Telugu": 3.230603448275862,
+          "Kannada": 3.214139344262295
+        },
+        "english_constraint_pass": false,
+        "max_x": 3.241368836691303,
+        "min_x": 3.197317287200702,
+        "delta_x": 0.04405154949060108,
+        "score": 22700.677083183233
+      },
+      {
+        "merge_count": 1000,
+        "vocab_size_so_far": 2931,
+        "x_by_language": {
+          "English": 2.7798926799635515,
+          "Hindi": 2.779365676319418,
+          "Telugu": 2.7840517241379312,
+          "Kannada": 2.7653688524590163
+        },
+        "english_constraint_pass": false,
+        "max_x": 2.7840517241379312,
+        "min_x": 2.7653688524590163,
+        "delta_x": 0.018682871678914914,
+        "score": 53524.96217851662
+      },
+      {
+        "merge_count": 1500,
+        "vocab_size_so_far": 3431,
+        "x_by_language": {
+          "English": 2.5107826263035333,
+          "Hindi": 2.4861476745643727,
+          "Telugu": 2.505603448275862,
+          "Kannada": 2.4836065573770494
+        },
+        "english_constraint_pass": false,
+        "max_x": 2.5107826263035333,
+        "min_x": 2.4836065573770494,
+        "delta_x": 0.027176068926483943,
+        "score": 36797.08064860949
+      },
+      {
+        "merge_count": 2000,
+        "vocab_size_so_far": 3931,
+        "x_by_language": {
+          "English": 2.317809051331376,
+          "Hindi": 2.3117713426100037,
+          "Telugu": 2.3120689655172413,
+          "Kannada": 2.3165983606557377
+        },
+        "english_constraint_pass": false,
+        "max_x": 2.317809051331376,
+        "min_x": 2.3117713426100037,
+        "delta_x": 0.006037708721372326,
+        "score": 165625.74416022963
+      },
+      {
+        "merge_count": 2500,
+        "vocab_size_so_far": 4431,
+        "x_by_language": {
+          "English": 2.1683709628429684,
+          "Hindi": 2.1617149304249716,
+          "Telugu": 2.172844827586207,
+          "Kannada": 2.165983606557377
+        },
+        "english_constraint_pass": false,
+        "max_x": 2.172844827586207,
+        "min_x": 2.1617149304249716,
+        "delta_x": 0.011129897161235469,
+        "score": 89848.08983526992
+      },
+      {
+        "merge_count": 3000,
+        "vocab_size_so_far": 4931,
+        "x_by_language": {
+          "English": 2.0466740913232764,
+          "Hindi": 2.04199573774602,
+          "Telugu": 2.038793103448276,
+          "Kannada": 2.043032786885246
+        },
+        "english_constraint_pass": false,
+        "max_x": 2.0466740913232764,
+        "min_x": 2.038793103448276,
+        "delta_x": 0.007880987875000578,
+        "score": 126887.64604905913
+      },
+      {
+        "merge_count": 3500,
+        "vocab_size_so_far": 5431,
+        "x_by_language": {
+          "English": 1.9541358712159562,
+          "Hindi": 1.9514855208725084,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9541358712159562,
+        "min_x": 1.9514855208725084,
+        "delta_x": 0.0026503503434478493,
+        "score": 377308.6084532873
+      },
+      {
+        "merge_count": 4000,
+        "vocab_size_so_far": 5931,
+        "x_by_language": {
+          "English": 1.776045357902197,
+          "Hindi": 1.9499811959383226,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.776045357902197,
+        "delta_x": 0.17784808472075375,
+        "score": 5622.7763237942045
+      },
+      {
+        "merge_count": 4500,
+        "vocab_size_so_far": 6431,
+        "x_by_language": {
+          "English": 1.6489824845600891,
+          "Hindi": 1.9462203836028582,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.6489824845600891,
+        "delta_x": 0.3049109580628617,
+        "score": 3279.645986989539
+      },
+      {
+        "merge_count": 5000,
+        "vocab_size_so_far": 6931,
+        "x_by_language": {
+          "English": 1.547737167156019,
+          "Hindi": 1.9462203836028582,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.547737167156019,
+        "delta_x": 0.4061562754669319,
+        "score": 2462.1064856141
+      },
+      {
+        "merge_count": 5500,
+        "vocab_size_so_far": 7431,
+        "x_by_language": {
+          "English": 1.450946643717728,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.450946643717728,
+        "delta_x": 0.5029467989052228,
+        "score": 1988.281866345955
+      },
+      {
+        "merge_count": 6000,
+        "vocab_size_so_far": 7931,
+        "x_by_language": {
+          "English": 1.400323985015693,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.400323985015693,
+        "delta_x": 0.5535694576072578,
+        "score": 1806.4580447093094
+      },
+      {
+        "merge_count": 6500,
+        "vocab_size_so_far": 8431,
+        "x_by_language": {
+          "English": 1.349701326313658,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.349701326313658,
+        "delta_x": 0.6041921163092929,
+        "score": 1655.1026949979077
+      },
+      {
+        "merge_count": 7000,
+        "vocab_size_so_far": 8931,
+        "x_by_language": {
+          "English": 1.299078667611623,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.299078667611623,
+        "delta_x": 0.6548147750113278,
+        "score": 1527.1494140960713
+      },
+      {
+        "merge_count": 7500,
+        "vocab_size_so_far": 9431,
+        "x_by_language": {
+          "English": 1.248456008909588,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.248456008909588,
+        "delta_x": 0.7054374337133629,
+        "score": 1417.5601580087475
+      },
+      {
+        "merge_count": 8000,
+        "vocab_size_so_far": 9931,
+        "x_by_language": {
+          "English": 1.1998582565556344,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9334016393442623
+        },
+        "english_constraint_pass": true,
+        "max_x": 1.9525862068965518,
+        "min_x": 1.1998582565556344,
+        "delta_x": 0.7527279503409174,
+        "score": 1328.5012195270426
+      },
+      {
+        "merge_count": 8069,
+        "vocab_size_so_far": 10000,
+        "x_by_language": {
+          "English": 1.1998582565556344,
+          "Hindi": 1.924909113701893,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.8801229508196722
+        },
+        "english_constraint_pass": true,
+        "max_x": 1.9525862068965518,
+        "min_x": 1.1998582565556344,
+        "delta_x": 0.7527279503409174,
+        "score": 1328.5012195270426
+      }
+    ],
+    "elapsed_seconds": 35.71,
+    "explanation": "Training uses integer ID tuples and per-language word-frequency dictionaries. Each legal BPE merge is still exported as readable string merge rules in tokenizer.json.",
+    "candidate_leaderboard": [
+      {
+        "config_name": "strong_late_rescue_3500_b130",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1998582565556344,
+          "Hindi": 1.924909113701893,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.8801229508196722
+        },
+        "delta_x": 0.7527279503409174,
+        "score": 1328.5012195270426,
+        "hyperparameters": {
+          "english_boost": 130.0,
+          "fairness_strength": 5.2,
+          "worst_boost": 2.6,
+          "min_pressure": 0.02,
+          "rebuild_every": 10,
+          "constraint_start_merge": 3500
+        },
+        "elapsed_seconds": 35.71
+      },
+      {
+        "config_name": "targeted_rescue_3500_b70",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1999595018730385,
+          "Hindi": 1.924909113701893,
+          "Telugu": 1.9577586206896551,
+          "Kannada": 1.8729508196721312
+        },
+        "delta_x": 0.7577991188166167,
+        "score": 1319.6109300860703,
+        "hyperparameters": {
+          "english_boost": 70.0,
+          "fairness_strength": 6.5,
+          "worst_boost": 3.6,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 3500
+        },
+        "elapsed_seconds": 29.669
+      },
+      {
+        "config_name": "targeted_rescue_3500_b90",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1999595018730385,
+          "Hindi": 1.924909113701893,
+          "Telugu": 1.9577586206896551,
+          "Kannada": 1.8729508196721312
+        },
+        "delta_x": 0.7577991188166167,
+        "score": 1319.6109300860703,
+        "hyperparameters": {
+          "english_boost": 90.0,
+          "fairness_strength": 6.5,
+          "worst_boost": 3.6,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 3500
+        },
+        "elapsed_seconds": 29.601
+      },
+      {
+        "config_name": "strong_late_rescue_2500_b90",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1999595018730385,
+          "Hindi": 1.8984580669424596,
+          "Telugu": 1.9935344827586208,
+          "Kannada": 1.8176229508196722
+        },
+        "delta_x": 0.7935749808855823,
+        "score": 1260.1203718444597,
+        "hyperparameters": {
+          "english_boost": 90.0,
+          "fairness_strength": 5.8,
+          "worst_boost": 3.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 10,
+          "constraint_start_merge": 2500
+        },
+        "elapsed_seconds": 35.627
+      },
+      {
+        "config_name": "strong_late_rescue_3000_b110",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1998582565556344,
+          "Hindi": 1.8951986962517238,
+          "Telugu": 1.9939655172413793,
+          "Kannada": 1.8176229508196722
+        },
+        "delta_x": 0.7941072606857449,
+        "score": 1259.275729498378,
+        "hyperparameters": {
+          "english_boost": 110.0,
+          "fairness_strength": 5.5,
+          "worst_boost": 2.8,
+          "min_pressure": 0.02,
+          "rebuild_every": 10,
+          "constraint_start_merge": 3000
+        },
+        "elapsed_seconds": 35.331
+      },
+      {
+        "config_name": "targeted_rescue_3200_b70",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1988458033815936,
+          "Hindi": 1.9043500062680205,
+          "Telugu": 1.994396551724138,
+          "Kannada": 1.8206967213114753
+        },
+        "delta_x": 0.7955507483425444,
+        "score": 1256.990835698925,
+        "hyperparameters": {
+          "english_boost": 70.0,
+          "fairness_strength": 6.8,
+          "worst_boost": 3.8,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 3200
+        },
+        "elapsed_seconds": 29.427
+      },
+      {
+        "config_name": "targeted_rescue_3000_b60",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.19925078465121,
+          "Hindi": 1.9042246458568384,
+          "Telugu": 1.9948275862068965,
+          "Kannada": 1.8206967213114753
+        },
+        "delta_x": 0.7955768015556866,
+        "score": 1256.949672293838,
+        "hyperparameters": {
+          "english_boost": 60.0,
+          "fairness_strength": 6.8,
+          "worst_boost": 3.8,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 3000
+        },
+        "elapsed_seconds": 29.436
+      },
+      {
+        "config_name": "english_constraint_strong",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.2003644831426548,
+          "Hindi": 1.9107433872383102,
+          "Telugu": 1.9926724137931036,
+          "Kannada": 1.8278688524590163
+        },
+        "delta_x": 0.7923079306504488,
+        "score": 1262.135542653278,
+        "hyperparameters": {
+          "english_boost": 30.0,
+          "fairness_strength": 4.0,
+          "worst_boost": 2.5,
+          "min_pressure": 0.02,
+          "rebuild_every": 16,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 22.055
+      },
+      {
+        "config_name": "targeted_rescue_3800_b90",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.210893996152678,
+          "Hindi": 1.8967030211859095,
+          "Telugu": 1.9142241379310345,
+          "Kannada": 1.8995901639344261
+        },
+        "delta_x": 0.7033301417783566,
+        "score": 1421.8073996822025,
+        "hyperparameters": {
+          "english_boost": 90.0,
+          "fairness_strength": 6.3,
+          "worst_boost": 3.5,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 3800
+        },
+        "elapsed_seconds": 29.874
+      },
+      {
+        "config_name": "targeted_rescue_4000_b100",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.225473321858864,
+          "Hindi": 1.8623542685220007,
+          "Telugu": 1.8836206896551724,
+          "Kannada": 1.8760245901639345
+        },
+        "delta_x": 0.6581473677963083,
+        "score": 1519.4165454893873,
+        "hyperparameters": {
+          "english_boost": 100.0,
+          "fairness_strength": 6.0,
+          "worst_boost": 3.2,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 4000
+        },
+        "elapsed_seconds": 29.772
+      },
+      {
+        "config_name": "targeted_rescue_4200_b120",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.2381289865343728,
+          "Hindi": 1.8402908361539425,
+          "Telugu": 1.8525862068965517,
+          "Kannada": 1.8432377049180328
+        },
+        "delta_x": 0.614457220362179,
+        "score": 1627.4525985886712,
+        "hyperparameters": {
+          "english_boost": 120.0,
+          "fairness_strength": 5.8,
+          "worst_boost": 3.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 10,
+          "constraint_start_merge": 4200
+        },
+        "elapsed_seconds": 33.363
+      },
+      {
+        "config_name": "targeted_rescue_4500_b140",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.2539232560494078,
+          "Hindi": 1.8070703271906732,
+          "Telugu": 1.813793103448276,
+          "Kannada": 1.8135245901639345
+        },
+        "delta_x": 0.5598698473988681,
+        "score": 1786.1294096225365,
+        "hyperparameters": {
+          "english_boost": 140.0,
+          "fairness_strength": 5.5,
+          "worst_boost": 2.8,
+          "min_pressure": 0.02,
+          "rebuild_every": 10,
+          "constraint_start_merge": 4500
+        },
+        "elapsed_seconds": 36.365
+      },
+      {
+        "config_name": "fair_first_rescue_4500",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.26890756302521,
+          "Hindi": 1.8005515858092014,
+          "Telugu": 1.8150862068965516,
+          "Kannada": 1.6926229508196722
+        },
+        "delta_x": 0.5461786438713416,
+        "score": 1830.9027846858855,
+        "hyperparameters": {
+          "english_boost": 38.0,
+          "fairness_strength": 7.0,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 14,
+          "constraint_start_merge": 4500
+        },
+        "elapsed_seconds": 24.283
+      },
+      {
+        "config_name": "moderate_english_30_fair",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.2983699503897945,
+          "Hindi": 1.7475241318791526,
+          "Telugu": 1.7543103448275863,
+          "Kannada": 1.6311475409836065
+        },
+        "delta_x": 0.4559403944377918,
+        "score": 2193.26914701882,
+        "hyperparameters": {
+          "english_boost": 30.0,
+          "fairness_strength": 6.5,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 16,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 21.956
+      },
+      {
+        "config_name": "moderate_english_28",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.3190239951402247,
+          "Hindi": 1.7072834398896828,
+          "Telugu": 1.7064655172413794,
+          "Kannada": 1.6004098360655739
+        },
+        "delta_x": 0.38825944474945806,
+        "score": 2575.5973577031596,
+        "hyperparameters": {
+          "english_boost": 28.0,
+          "fairness_strength": 6.5,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 16,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 21.941
+      },
+      {
+        "config_name": "fair_first_rescue_5500",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.3192264857750329,
+          "Hindi": 1.686348251222264,
+          "Telugu": 1.6922413793103448,
+          "Kannada": 1.6629098360655739
+        },
+        "delta_x": 0.3730148935353119,
+        "score": 2680.858103338262,
+        "hyperparameters": {
+          "english_boost": 42.0,
+          "fairness_strength": 7.0,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 14,
+          "constraint_start_merge": 5500
+        },
+        "elapsed_seconds": 24.327
+      },
+      {
+        "config_name": "moderate_english_26",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.3442340791738383,
+          "Hindi": 1.6558856713050019,
+          "Telugu": 1.653448275862069,
+          "Kannada": 1.569672131147541
+        },
+        "delta_x": 0.31165159213116356,
+        "score": 3208.7113470581403,
+        "hyperparameters": {
+          "english_boost": 26.0,
+          "fairness_strength": 6.5,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 16,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 21.778
+      },
+      {
+        "config_name": "fair_first_rescue_6500",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.369950389794472,
+          "Hindi": 1.5883164096778237,
+          "Telugu": 1.5948275862068966,
+          "Kannada": 1.5922131147540983
+        },
+        "delta_x": 0.22487719641242454,
+        "score": 4446.871519004538,
+        "hyperparameters": {
+          "english_boost": 48.0,
+          "fairness_strength": 7.0,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 14,
+          "constraint_start_merge": 6500
+        },
+        "elapsed_seconds": 24.441
+      },
+      {
+        "config_name": "fairness_heavy",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.3709628429685128,
+          "Hindi": 1.604613263131503,
+          "Telugu": 1.6012931034482758,
+          "Kannada": 1.5307377049180328
+        },
+        "delta_x": 0.2336504201629903,
+        "score": 4279.898145710237,
+        "hyperparameters": {
+          "english_boost": 24.0,
+          "fairness_strength": 7.0,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 18,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 19.716
+      },
+      {
+        "config_name": "balanced_constraint",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.371266578920725,
+          "Hindi": 1.6042371818979566,
+          "Telugu": 1.6025862068965517,
+          "Kannada": 1.5256147540983607
+        },
+        "delta_x": 0.2329706029772316,
+        "score": 4292.387053218602,
+        "hyperparameters": {
+          "english_boost": 18.0,
+          "fairness_strength": 5.5,
+          "worst_boost": 3.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 18,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 19.553
+      },
+      {
+        "config_name": "fair_first_rescue_7000",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.397185380176167,
+          "Hindi": 1.5419330575404286,
+          "Telugu": 1.548706896551724,
+          "Kannada": 1.540983606557377
+        },
+        "delta_x": 0.15152151637555722,
+        "score": 6599.722758327118,
+        "hyperparameters": {
+          "english_boost": 58.0,
+          "fairness_strength": 7.0,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 7000
+        },
+        "elapsed_seconds": 29.593
+      }
+    ],
+    "searched_candidate_count": 21,
+    "exact_checked_count": 21
+  },
+  "quota_search_diagnostics": {
+    "strategy": "grapheme_cluster_constrained_greedy_bpe_v4_int_id_wordfreq",
+    "config_name": "strong_late_rescue_3500_b130",
+    "english_max_x_constraint": 1.2,
+    "english_constraint_pass": true,
+    "learned_token_budget": 9996,
+    "base_symbol_count": 1927,
+    "merge_count": 8069,
+    "internal_training_representation": "tuple[int, ...] per unique word; pair keys are tuple[int, int]",
+    "corpus_deduplication": "per-language Counter: unique whitespace word -> frequency",
+    "unique_word_entries_by_language": {
+      "English": 3763,
+      "Hindi": 2427,
+      "Telugu": 1569,
+      "Kannada": 658
+    },
+    "total_unique_word_entries": 8417,
+    "hyperparameters": {
+      "english_boost": 130.0,
+      "fairness_strength": 5.2,
+      "worst_boost": 2.6,
+      "min_pressure": 0.02,
+      "rebuild_every": 10,
+      "constraint_start_merge": 3500
+    },
+    "selected_x_by_language": {
+      "English": 1.1998582565556344,
+      "Hindi": 1.924909113701893,
+      "Telugu": 1.9525862068965518,
+      "Kannada": 1.8801229508196722
+    },
+    "selected_english_constraint_pass": true,
+    "selected_delta_x": 0.7527279503409174,
+    "selected_score": 1328.5012195270426,
+    "progress_checkpoints": [
+      {
+        "merge_count": 1,
+        "vocab_size_so_far": 1932,
+        "x_by_language": {
+          "English": 6.349093854409234,
+          "Hindi": 3.5576031089381974,
+          "Telugu": 4.6931034482758625,
+          "Kannada": 4.770491803278689
+        },
+        "english_constraint_pass": false,
+        "max_x": 6.349093854409234,
+        "min_x": 3.5576031089381974,
+        "delta_x": 2.7914907454710365,
+        "score": 358.23152973815786
+      },
+      {
+        "merge_count": 500,
+        "vocab_size_so_far": 2431,
+        "x_by_language": {
+          "English": 3.241368836691303,
+          "Hindi": 3.197317287200702,
+          "Telugu": 3.230603448275862,
+          "Kannada": 3.214139344262295
+        },
+        "english_constraint_pass": false,
+        "max_x": 3.241368836691303,
+        "min_x": 3.197317287200702,
+        "delta_x": 0.04405154949060108,
+        "score": 22700.677083183233
+      },
+      {
+        "merge_count": 1000,
+        "vocab_size_so_far": 2931,
+        "x_by_language": {
+          "English": 2.7798926799635515,
+          "Hindi": 2.779365676319418,
+          "Telugu": 2.7840517241379312,
+          "Kannada": 2.7653688524590163
+        },
+        "english_constraint_pass": false,
+        "max_x": 2.7840517241379312,
+        "min_x": 2.7653688524590163,
+        "delta_x": 0.018682871678914914,
+        "score": 53524.96217851662
+      },
+      {
+        "merge_count": 1500,
+        "vocab_size_so_far": 3431,
+        "x_by_language": {
+          "English": 2.5107826263035333,
+          "Hindi": 2.4861476745643727,
+          "Telugu": 2.505603448275862,
+          "Kannada": 2.4836065573770494
+        },
+        "english_constraint_pass": false,
+        "max_x": 2.5107826263035333,
+        "min_x": 2.4836065573770494,
+        "delta_x": 0.027176068926483943,
+        "score": 36797.08064860949
+      },
+      {
+        "merge_count": 2000,
+        "vocab_size_so_far": 3931,
+        "x_by_language": {
+          "English": 2.317809051331376,
+          "Hindi": 2.3117713426100037,
+          "Telugu": 2.3120689655172413,
+          "Kannada": 2.3165983606557377
+        },
+        "english_constraint_pass": false,
+        "max_x": 2.317809051331376,
+        "min_x": 2.3117713426100037,
+        "delta_x": 0.006037708721372326,
+        "score": 165625.74416022963
+      },
+      {
+        "merge_count": 2500,
+        "vocab_size_so_far": 4431,
+        "x_by_language": {
+          "English": 2.1683709628429684,
+          "Hindi": 2.1617149304249716,
+          "Telugu": 2.172844827586207,
+          "Kannada": 2.165983606557377
+        },
+        "english_constraint_pass": false,
+        "max_x": 2.172844827586207,
+        "min_x": 2.1617149304249716,
+        "delta_x": 0.011129897161235469,
+        "score": 89848.08983526992
+      },
+      {
+        "merge_count": 3000,
+        "vocab_size_so_far": 4931,
+        "x_by_language": {
+          "English": 2.0466740913232764,
+          "Hindi": 2.04199573774602,
+          "Telugu": 2.038793103448276,
+          "Kannada": 2.043032786885246
+        },
+        "english_constraint_pass": false,
+        "max_x": 2.0466740913232764,
+        "min_x": 2.038793103448276,
+        "delta_x": 0.007880987875000578,
+        "score": 126887.64604905913
+      },
+      {
+        "merge_count": 3500,
+        "vocab_size_so_far": 5431,
+        "x_by_language": {
+          "English": 1.9541358712159562,
+          "Hindi": 1.9514855208725084,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9541358712159562,
+        "min_x": 1.9514855208725084,
+        "delta_x": 0.0026503503434478493,
+        "score": 377308.6084532873
+      },
+      {
+        "merge_count": 4000,
+        "vocab_size_so_far": 5931,
+        "x_by_language": {
+          "English": 1.776045357902197,
+          "Hindi": 1.9499811959383226,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.776045357902197,
+        "delta_x": 0.17784808472075375,
+        "score": 5622.7763237942045
+      },
+      {
+        "merge_count": 4500,
+        "vocab_size_so_far": 6431,
+        "x_by_language": {
+          "English": 1.6489824845600891,
+          "Hindi": 1.9462203836028582,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.6489824845600891,
+        "delta_x": 0.3049109580628617,
+        "score": 3279.645986989539
+      },
+      {
+        "merge_count": 5000,
+        "vocab_size_so_far": 6931,
+        "x_by_language": {
+          "English": 1.547737167156019,
+          "Hindi": 1.9462203836028582,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.547737167156019,
+        "delta_x": 0.4061562754669319,
+        "score": 2462.1064856141
+      },
+      {
+        "merge_count": 5500,
+        "vocab_size_so_far": 7431,
+        "x_by_language": {
+          "English": 1.450946643717728,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.450946643717728,
+        "delta_x": 0.5029467989052228,
+        "score": 1988.281866345955
+      },
+      {
+        "merge_count": 6000,
+        "vocab_size_so_far": 7931,
+        "x_by_language": {
+          "English": 1.400323985015693,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.400323985015693,
+        "delta_x": 0.5535694576072578,
+        "score": 1806.4580447093094
+      },
+      {
+        "merge_count": 6500,
+        "vocab_size_so_far": 8431,
+        "x_by_language": {
+          "English": 1.349701326313658,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.349701326313658,
+        "delta_x": 0.6041921163092929,
+        "score": 1655.1026949979077
+      },
+      {
+        "merge_count": 7000,
+        "vocab_size_so_far": 8931,
+        "x_by_language": {
+          "English": 1.299078667611623,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.299078667611623,
+        "delta_x": 0.6548147750113278,
+        "score": 1527.1494140960713
+      },
+      {
+        "merge_count": 7500,
+        "vocab_size_so_far": 9431,
+        "x_by_language": {
+          "English": 1.248456008909588,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9538934426229508
+        },
+        "english_constraint_pass": false,
+        "max_x": 1.9538934426229508,
+        "min_x": 1.248456008909588,
+        "delta_x": 0.7054374337133629,
+        "score": 1417.5601580087475
+      },
+      {
+        "merge_count": 8000,
+        "vocab_size_so_far": 9931,
+        "x_by_language": {
+          "English": 1.1998582565556344,
+          "Hindi": 1.9419581296226651,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.9334016393442623
+        },
+        "english_constraint_pass": true,
+        "max_x": 1.9525862068965518,
+        "min_x": 1.1998582565556344,
+        "delta_x": 0.7527279503409174,
+        "score": 1328.5012195270426
+      },
+      {
+        "merge_count": 8069,
+        "vocab_size_so_far": 10000,
+        "x_by_language": {
+          "English": 1.1998582565556344,
+          "Hindi": 1.924909113701893,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.8801229508196722
+        },
+        "english_constraint_pass": true,
+        "max_x": 1.9525862068965518,
+        "min_x": 1.1998582565556344,
+        "delta_x": 0.7527279503409174,
+        "score": 1328.5012195270426
+      }
+    ],
+    "elapsed_seconds": 35.71,
+    "explanation": "Training uses integer ID tuples and per-language word-frequency dictionaries. Each legal BPE merge is still exported as readable string merge rules in tokenizer.json.",
+    "candidate_leaderboard": [
+      {
+        "config_name": "strong_late_rescue_3500_b130",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1998582565556344,
+          "Hindi": 1.924909113701893,
+          "Telugu": 1.9525862068965518,
+          "Kannada": 1.8801229508196722
+        },
+        "delta_x": 0.7527279503409174,
+        "score": 1328.5012195270426,
+        "hyperparameters": {
+          "english_boost": 130.0,
+          "fairness_strength": 5.2,
+          "worst_boost": 2.6,
+          "min_pressure": 0.02,
+          "rebuild_every": 10,
+          "constraint_start_merge": 3500
+        },
+        "elapsed_seconds": 35.71
+      },
+      {
+        "config_name": "targeted_rescue_3500_b70",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1999595018730385,
+          "Hindi": 1.924909113701893,
+          "Telugu": 1.9577586206896551,
+          "Kannada": 1.8729508196721312
+        },
+        "delta_x": 0.7577991188166167,
+        "score": 1319.6109300860703,
+        "hyperparameters": {
+          "english_boost": 70.0,
+          "fairness_strength": 6.5,
+          "worst_boost": 3.6,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 3500
+        },
+        "elapsed_seconds": 29.669
+      },
+      {
+        "config_name": "targeted_rescue_3500_b90",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1999595018730385,
+          "Hindi": 1.924909113701893,
+          "Telugu": 1.9577586206896551,
+          "Kannada": 1.8729508196721312
+        },
+        "delta_x": 0.7577991188166167,
+        "score": 1319.6109300860703,
+        "hyperparameters": {
+          "english_boost": 90.0,
+          "fairness_strength": 6.5,
+          "worst_boost": 3.6,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 3500
+        },
+        "elapsed_seconds": 29.601
+      },
+      {
+        "config_name": "strong_late_rescue_2500_b90",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1999595018730385,
+          "Hindi": 1.8984580669424596,
+          "Telugu": 1.9935344827586208,
+          "Kannada": 1.8176229508196722
+        },
+        "delta_x": 0.7935749808855823,
+        "score": 1260.1203718444597,
+        "hyperparameters": {
+          "english_boost": 90.0,
+          "fairness_strength": 5.8,
+          "worst_boost": 3.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 10,
+          "constraint_start_merge": 2500
+        },
+        "elapsed_seconds": 35.627
+      },
+      {
+        "config_name": "strong_late_rescue_3000_b110",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1998582565556344,
+          "Hindi": 1.8951986962517238,
+          "Telugu": 1.9939655172413793,
+          "Kannada": 1.8176229508196722
+        },
+        "delta_x": 0.7941072606857449,
+        "score": 1259.275729498378,
+        "hyperparameters": {
+          "english_boost": 110.0,
+          "fairness_strength": 5.5,
+          "worst_boost": 2.8,
+          "min_pressure": 0.02,
+          "rebuild_every": 10,
+          "constraint_start_merge": 3000
+        },
+        "elapsed_seconds": 35.331
+      },
+      {
+        "config_name": "targeted_rescue_3200_b70",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.1988458033815936,
+          "Hindi": 1.9043500062680205,
+          "Telugu": 1.994396551724138,
+          "Kannada": 1.8206967213114753
+        },
+        "delta_x": 0.7955507483425444,
+        "score": 1256.990835698925,
+        "hyperparameters": {
+          "english_boost": 70.0,
+          "fairness_strength": 6.8,
+          "worst_boost": 3.8,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 3200
+        },
+        "elapsed_seconds": 29.427
+      },
+      {
+        "config_name": "targeted_rescue_3000_b60",
+        "english_constraint_pass": true,
+        "x_by_language": {
+          "English": 1.19925078465121,
+          "Hindi": 1.9042246458568384,
+          "Telugu": 1.9948275862068965,
+          "Kannada": 1.8206967213114753
+        },
+        "delta_x": 0.7955768015556866,
+        "score": 1256.949672293838,
+        "hyperparameters": {
+          "english_boost": 60.0,
+          "fairness_strength": 6.8,
+          "worst_boost": 3.8,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 3000
+        },
+        "elapsed_seconds": 29.436
+      },
+      {
+        "config_name": "english_constraint_strong",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.2003644831426548,
+          "Hindi": 1.9107433872383102,
+          "Telugu": 1.9926724137931036,
+          "Kannada": 1.8278688524590163
+        },
+        "delta_x": 0.7923079306504488,
+        "score": 1262.135542653278,
+        "hyperparameters": {
+          "english_boost": 30.0,
+          "fairness_strength": 4.0,
+          "worst_boost": 2.5,
+          "min_pressure": 0.02,
+          "rebuild_every": 16,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 22.055
+      },
+      {
+        "config_name": "targeted_rescue_3800_b90",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.210893996152678,
+          "Hindi": 1.8967030211859095,
+          "Telugu": 1.9142241379310345,
+          "Kannada": 1.8995901639344261
+        },
+        "delta_x": 0.7033301417783566,
+        "score": 1421.8073996822025,
+        "hyperparameters": {
+          "english_boost": 90.0,
+          "fairness_strength": 6.3,
+          "worst_boost": 3.5,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 3800
+        },
+        "elapsed_seconds": 29.874
+      },
+      {
+        "config_name": "targeted_rescue_4000_b100",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.225473321858864,
+          "Hindi": 1.8623542685220007,
+          "Telugu": 1.8836206896551724,
+          "Kannada": 1.8760245901639345
+        },
+        "delta_x": 0.6581473677963083,
+        "score": 1519.4165454893873,
+        "hyperparameters": {
+          "english_boost": 100.0,
+          "fairness_strength": 6.0,
+          "worst_boost": 3.2,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 4000
+        },
+        "elapsed_seconds": 29.772
+      },
+      {
+        "config_name": "targeted_rescue_4200_b120",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.2381289865343728,
+          "Hindi": 1.8402908361539425,
+          "Telugu": 1.8525862068965517,
+          "Kannada": 1.8432377049180328
+        },
+        "delta_x": 0.614457220362179,
+        "score": 1627.4525985886712,
+        "hyperparameters": {
+          "english_boost": 120.0,
+          "fairness_strength": 5.8,
+          "worst_boost": 3.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 10,
+          "constraint_start_merge": 4200
+        },
+        "elapsed_seconds": 33.363
+      },
+      {
+        "config_name": "targeted_rescue_4500_b140",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.2539232560494078,
+          "Hindi": 1.8070703271906732,
+          "Telugu": 1.813793103448276,
+          "Kannada": 1.8135245901639345
+        },
+        "delta_x": 0.5598698473988681,
+        "score": 1786.1294096225365,
+        "hyperparameters": {
+          "english_boost": 140.0,
+          "fairness_strength": 5.5,
+          "worst_boost": 2.8,
+          "min_pressure": 0.02,
+          "rebuild_every": 10,
+          "constraint_start_merge": 4500
+        },
+        "elapsed_seconds": 36.365
+      },
+      {
+        "config_name": "fair_first_rescue_4500",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.26890756302521,
+          "Hindi": 1.8005515858092014,
+          "Telugu": 1.8150862068965516,
+          "Kannada": 1.6926229508196722
+        },
+        "delta_x": 0.5461786438713416,
+        "score": 1830.9027846858855,
+        "hyperparameters": {
+          "english_boost": 38.0,
+          "fairness_strength": 7.0,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 14,
+          "constraint_start_merge": 4500
+        },
+        "elapsed_seconds": 24.283
+      },
+      {
+        "config_name": "moderate_english_30_fair",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.2983699503897945,
+          "Hindi": 1.7475241318791526,
+          "Telugu": 1.7543103448275863,
+          "Kannada": 1.6311475409836065
+        },
+        "delta_x": 0.4559403944377918,
+        "score": 2193.26914701882,
+        "hyperparameters": {
+          "english_boost": 30.0,
+          "fairness_strength": 6.5,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 16,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 21.956
+      },
+      {
+        "config_name": "moderate_english_28",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.3190239951402247,
+          "Hindi": 1.7072834398896828,
+          "Telugu": 1.7064655172413794,
+          "Kannada": 1.6004098360655739
+        },
+        "delta_x": 0.38825944474945806,
+        "score": 2575.5973577031596,
+        "hyperparameters": {
+          "english_boost": 28.0,
+          "fairness_strength": 6.5,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 16,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 21.941
+      },
+      {
+        "config_name": "fair_first_rescue_5500",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.3192264857750329,
+          "Hindi": 1.686348251222264,
+          "Telugu": 1.6922413793103448,
+          "Kannada": 1.6629098360655739
+        },
+        "delta_x": 0.3730148935353119,
+        "score": 2680.858103338262,
+        "hyperparameters": {
+          "english_boost": 42.0,
+          "fairness_strength": 7.0,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 14,
+          "constraint_start_merge": 5500
+        },
+        "elapsed_seconds": 24.327
+      },
+      {
+        "config_name": "moderate_english_26",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.3442340791738383,
+          "Hindi": 1.6558856713050019,
+          "Telugu": 1.653448275862069,
+          "Kannada": 1.569672131147541
+        },
+        "delta_x": 0.31165159213116356,
+        "score": 3208.7113470581403,
+        "hyperparameters": {
+          "english_boost": 26.0,
+          "fairness_strength": 6.5,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 16,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 21.778
+      },
+      {
+        "config_name": "fair_first_rescue_6500",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.369950389794472,
+          "Hindi": 1.5883164096778237,
+          "Telugu": 1.5948275862068966,
+          "Kannada": 1.5922131147540983
+        },
+        "delta_x": 0.22487719641242454,
+        "score": 4446.871519004538,
+        "hyperparameters": {
+          "english_boost": 48.0,
+          "fairness_strength": 7.0,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 14,
+          "constraint_start_merge": 6500
+        },
+        "elapsed_seconds": 24.441
+      },
+      {
+        "config_name": "fairness_heavy",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.3709628429685128,
+          "Hindi": 1.604613263131503,
+          "Telugu": 1.6012931034482758,
+          "Kannada": 1.5307377049180328
+        },
+        "delta_x": 0.2336504201629903,
+        "score": 4279.898145710237,
+        "hyperparameters": {
+          "english_boost": 24.0,
+          "fairness_strength": 7.0,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 18,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 19.716
+      },
+      {
+        "config_name": "balanced_constraint",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.371266578920725,
+          "Hindi": 1.6042371818979566,
+          "Telugu": 1.6025862068965517,
+          "Kannada": 1.5256147540983607
+        },
+        "delta_x": 0.2329706029772316,
+        "score": 4292.387053218602,
+        "hyperparameters": {
+          "english_boost": 18.0,
+          "fairness_strength": 5.5,
+          "worst_boost": 3.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 18,
+          "constraint_start_merge": 0
+        },
+        "elapsed_seconds": 19.553
+      },
+      {
+        "config_name": "fair_first_rescue_7000",
+        "english_constraint_pass": false,
+        "x_by_language": {
+          "English": 1.397185380176167,
+          "Hindi": 1.5419330575404286,
+          "Telugu": 1.548706896551724,
+          "Kannada": 1.540983606557377
+        },
+        "delta_x": 0.15152151637555722,
+        "score": 6599.722758327118,
+        "hyperparameters": {
+          "english_boost": 58.0,
+          "fairness_strength": 7.0,
+          "worst_boost": 4.0,
+          "min_pressure": 0.02,
+          "rebuild_every": 12,
+          "constraint_start_merge": 7000
+        },
+        "elapsed_seconds": 29.593
+      }
+    ],
+    "searched_candidate_count": 21,
+    "exact_checked_count": 21
+  },
+  "per_language": [
+    {
+      "code": "en",
+      "language": "English",
+      "wiki_title": "India",
+      "source_url": "https://en.wikipedia.org/wiki/India",
+      "word_units": 9877,
+      "unique_word_types": 3763,
+      "bpe_tokens": 11851,
+      "unique_bpe_tokens_used": 4124,
+      "characters": 63940,
+      "initial_baseline_tokens": 63879,
+      "initial_baseline_x": 6.467449630454592,
+      "char_baseline_tokens": 63879,
+      "char_baseline_x": 6.467449630454592,
+      "fertility_x": 1.1998582565556344,
+      "fertility_x_rounded": 1.1999,
+      "faithful_units": 12060,
+      "faithful_fertility_x": 0.9826699834162521,
+      "faithful_fertility_x_rounded": 0.9827,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 8018,
+      "eval_word_units": 1859,
+      "full_word_units": 9877,
+      "corpus_sha256": "7d111d9c6140d5c710f644ee08de488c72fc72770166b7f8bc1e46eb92bceea5",
+      "initial_unit_mode": "grapheme"
+    },
+    {
+      "code": "hi",
+      "language": "Hindi",
+      "wiki_title": "भारत",
+      "source_url": "https://hi.wikipedia.org/wiki/भारत",
+      "word_units": 7977,
+      "unique_word_types": 2427,
+      "bpe_tokens": 15355,
+      "unique_bpe_tokens_used": 1313,
+      "characters": 43229,
+      "initial_baseline_tokens": 28379,
+      "initial_baseline_x": 3.5576031089381974,
+      "char_baseline_tokens": 28379,
+      "char_baseline_x": 3.5576031089381974,
+      "fertility_x": 1.924909113701893,
+      "fertility_x_rounded": 1.9249,
+      "faithful_units": 9161,
+      "faithful_fertility_x": 1.676127060364589,
+      "faithful_fertility_x_rounded": 1.6761,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 6701,
+      "eval_word_units": 1276,
+      "full_word_units": 7977,
+      "corpus_sha256": "4d0a3f5c9dcb095bcbeb183d7638a61a08f087f47c4ca1a44f44c4d6ddd63d27",
+      "initial_unit_mode": "grapheme"
+    },
+    {
+      "code": "te",
+      "language": "Telugu",
+      "wiki_title": "భారతదేశం",
+      "source_url": "https://te.wikipedia.org/wiki/భారతదేశం",
+      "word_units": 2320,
+      "unique_word_types": 1569,
+      "bpe_tokens": 4530,
+      "unique_bpe_tokens_used": 1567,
+      "characters": 18805,
+      "initial_baseline_tokens": 10888,
+      "initial_baseline_x": 4.6931034482758625,
+      "char_baseline_tokens": 10888,
+      "char_baseline_x": 4.6931034482758625,
+      "fertility_x": 1.9525862068965518,
+      "fertility_x_rounded": 1.9526,
+      "faithful_units": 3025,
+      "faithful_fertility_x": 1.4975206611570249,
+      "faithful_fertility_x_rounded": 1.4975,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 2242,
+      "eval_word_units": 78,
+      "full_word_units": 2320,
+      "corpus_sha256": "3395446b623f633d174063b0ca16eb0b5970519c2575a1cfb9799da0be5bc5c3",
+      "initial_unit_mode": "grapheme"
+    },
+    {
+      "code": "kn",
+      "language": "Kannada",
+      "wiki_title": "ಭಾರತ",
+      "source_url": "https://kn.wikipedia.org/wiki/ಭಾರತ",
+      "word_units": 976,
+      "unique_word_types": 658,
+      "bpe_tokens": 1835,
+      "unique_bpe_tokens_used": 789,
+      "characters": 7536,
+      "initial_baseline_tokens": 4656,
+      "initial_baseline_x": 4.770491803278689,
+      "char_baseline_tokens": 4656,
+      "char_baseline_x": 4.770491803278689,
+      "fertility_x": 1.8801229508196722,
+      "fertility_x_rounded": 1.8801,
+      "faithful_units": 1248,
+      "faithful_fertility_x": 1.470352564102564,
+      "faithful_fertility_x_rounded": 1.4704,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 915,
+      "eval_word_units": 61,
+      "full_word_units": 976,
+      "corpus_sha256": "c17f4fb9b17c4f915a05b17aa025059810702c66d421864cf71215aefae14009",
+      "initial_unit_mode": "grapheme"
+    }
+  ],
+  "full_page_per_language": [
+    {
+      "code": "en",
+      "language": "English",
+      "wiki_title": "India",
+      "source_url": "https://en.wikipedia.org/wiki/India",
+      "word_units": 9877,
+      "unique_word_types": 3763,
+      "bpe_tokens": 11851,
+      "unique_bpe_tokens_used": 4124,
+      "characters": 63940,
+      "initial_baseline_tokens": 63879,
+      "initial_baseline_x": 6.467449630454592,
+      "char_baseline_tokens": 63879,
+      "char_baseline_x": 6.467449630454592,
+      "fertility_x": 1.1998582565556344,
+      "fertility_x_rounded": 1.1999,
+      "faithful_units": 12060,
+      "faithful_fertility_x": 0.9826699834162521,
+      "faithful_fertility_x_rounded": 0.9827,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 8018,
+      "eval_word_units": 1859,
+      "full_word_units": 9877,
+      "corpus_sha256": "7d111d9c6140d5c710f644ee08de488c72fc72770166b7f8bc1e46eb92bceea5",
+      "initial_unit_mode": "grapheme"
+    },
+    {
+      "code": "hi",
+      "language": "Hindi",
+      "wiki_title": "भारत",
+      "source_url": "https://hi.wikipedia.org/wiki/भारत",
+      "word_units": 7977,
+      "unique_word_types": 2427,
+      "bpe_tokens": 15355,
+      "unique_bpe_tokens_used": 1313,
+      "characters": 43229,
+      "initial_baseline_tokens": 28379,
+      "initial_baseline_x": 3.5576031089381974,
+      "char_baseline_tokens": 28379,
+      "char_baseline_x": 3.5576031089381974,
+      "fertility_x": 1.924909113701893,
+      "fertility_x_rounded": 1.9249,
+      "faithful_units": 9161,
+      "faithful_fertility_x": 1.676127060364589,
+      "faithful_fertility_x_rounded": 1.6761,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 6701,
+      "eval_word_units": 1276,
+      "full_word_units": 7977,
+      "corpus_sha256": "4d0a3f5c9dcb095bcbeb183d7638a61a08f087f47c4ca1a44f44c4d6ddd63d27",
+      "initial_unit_mode": "grapheme"
+    },
+    {
+      "code": "te",
+      "language": "Telugu",
+      "wiki_title": "భారతదేశం",
+      "source_url": "https://te.wikipedia.org/wiki/భారతదేశం",
+      "word_units": 2320,
+      "unique_word_types": 1569,
+      "bpe_tokens": 4530,
+      "unique_bpe_tokens_used": 1567,
+      "characters": 18805,
+      "initial_baseline_tokens": 10888,
+      "initial_baseline_x": 4.6931034482758625,
+      "char_baseline_tokens": 10888,
+      "char_baseline_x": 4.6931034482758625,
+      "fertility_x": 1.9525862068965518,
+      "fertility_x_rounded": 1.9526,
+      "faithful_units": 3025,
+      "faithful_fertility_x": 1.4975206611570249,
+      "faithful_fertility_x_rounded": 1.4975,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 2242,
+      "eval_word_units": 78,
+      "full_word_units": 2320,
+      "corpus_sha256": "3395446b623f633d174063b0ca16eb0b5970519c2575a1cfb9799da0be5bc5c3",
+      "initial_unit_mode": "grapheme"
+    },
+    {
+      "code": "kn",
+      "language": "Kannada",
+      "wiki_title": "ಭಾರತ",
+      "source_url": "https://kn.wikipedia.org/wiki/ಭಾರತ",
+      "word_units": 976,
+      "unique_word_types": 658,
+      "bpe_tokens": 1835,
+      "unique_bpe_tokens_used": 789,
+      "characters": 7536,
+      "initial_baseline_tokens": 4656,
+      "initial_baseline_x": 4.770491803278689,
+      "char_baseline_tokens": 4656,
+      "char_baseline_x": 4.770491803278689,
+      "fertility_x": 1.8801229508196722,
+      "fertility_x_rounded": 1.8801,
+      "faithful_units": 1248,
+      "faithful_fertility_x": 1.470352564102564,
+      "faithful_fertility_x_rounded": 1.4704,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 915,
+      "eval_word_units": 61,
+      "full_word_units": 976,
+      "corpus_sha256": "c17f4fb9b17c4f915a05b17aa025059810702c66d421864cf71215aefae14009",
+      "initial_unit_mode": "grapheme"
+    }
+  ],
+  "heldout_diagnostic_per_language": [
+    {
+      "code": "en",
+      "language": "English",
+      "wiki_title": "India",
+      "source_url": "https://en.wikipedia.org/wiki/India",
+      "word_units": 1859,
+      "unique_word_types": 950,
+      "bpe_tokens": 3637,
+      "unique_bpe_tokens_used": 942,
+      "characters": 11729,
+      "initial_baseline_tokens": 11730,
+      "initial_baseline_x": 6.309844002151695,
+      "char_baseline_tokens": 11730,
+      "char_baseline_x": 6.309844002151695,
+      "fertility_x": 1.956428187197418,
+      "fertility_x_rounded": 1.9564,
+      "faithful_units": 2185,
+      "faithful_fertility_x": 1.6645308924485125,
+      "faithful_fertility_x_rounded": 1.6645,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 8018,
+      "eval_word_units": 1859,
+      "full_word_units": 9877,
+      "corpus_sha256": "7f6a7cb5e00af2ab87f169a3180bdf818b73fb47a394408de767e2d6e9d496b4",
+      "initial_unit_mode": "grapheme"
+    },
+    {
+      "code": "hi",
+      "language": "Hindi",
+      "wiki_title": "भारत",
+      "source_url": "https://hi.wikipedia.org/wiki/भारत",
+      "word_units": 1276,
+      "unique_word_types": 563,
+      "bpe_tokens": 2152,
+      "unique_bpe_tokens_used": 672,
+      "characters": 6866,
+      "initial_baseline_tokens": 4493,
+      "initial_baseline_x": 3.5211598746081503,
+      "char_baseline_tokens": 4493,
+      "char_baseline_x": 3.5211598746081503,
+      "fertility_x": 1.6865203761755485,
+      "fertility_x_rounded": 1.6865,
+      "faithful_units": 1458,
+      "faithful_fertility_x": 1.4759945130315502,
+      "faithful_fertility_x_rounded": 1.476,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 6701,
+      "eval_word_units": 1276,
+      "full_word_units": 7977,
+      "corpus_sha256": "d0b53a993f1af9ed5dae896ded5145bf5ebbb55f71c0fd2d5112cbf7d4fda1a5",
+      "initial_unit_mode": "grapheme"
+    },
+    {
+      "code": "te",
+      "language": "Telugu",
+      "wiki_title": "భారతదేశం",
+      "source_url": "https://te.wikipedia.org/wiki/భారతదేశం",
+      "word_units": 78,
+      "unique_word_types": 62,
+      "bpe_tokens": 161,
+      "unique_bpe_tokens_used": 121,
+      "characters": 615,
+      "initial_baseline_tokens": 375,
+      "initial_baseline_x": 4.8076923076923075,
+      "char_baseline_tokens": 375,
+      "char_baseline_x": 4.8076923076923075,
+      "fertility_x": 2.0641025641025643,
+      "fertility_x_rounded": 2.0641,
+      "faithful_units": 83,
+      "faithful_fertility_x": 1.9397590361445782,
+      "faithful_fertility_x_rounded": 1.9398,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 2242,
+      "eval_word_units": 78,
+      "full_word_units": 2320,
+      "corpus_sha256": "09ee499b028c2ffac09af2f9b8c084916a50ae23cf275f294b18caed88dbd996",
+      "initial_unit_mode": "grapheme"
+    },
+    {
+      "code": "kn",
+      "language": "Kannada",
+      "wiki_title": "ಭಾರತ",
+      "source_url": "https://kn.wikipedia.org/wiki/ಭಾರತ",
+      "word_units": 61,
+      "unique_word_types": 46,
+      "bpe_tokens": 178,
+      "unique_bpe_tokens_used": 105,
+      "characters": 433,
+      "initial_baseline_tokens": 282,
+      "initial_baseline_x": 4.622950819672131,
+      "char_baseline_tokens": 282,
+      "char_baseline_x": 4.622950819672131,
+      "fertility_x": 2.918032786885246,
+      "fertility_x_rounded": 2.918,
+      "faithful_units": 68,
+      "faithful_fertility_x": 2.6176470588235294,
+      "faithful_fertility_x_rounded": 2.6176,
+      "round_trip_visible_valid": true,
+      "round_trip_exact_valid": false,
+      "source_status": {
+        "source": "wikipedia_api_full_plain_text",
+        "ok": true,
+        "error": null
+      },
+      "train_word_units": 915,
+      "eval_word_units": 61,
+      "full_word_units": 976,
+      "corpus_sha256": "243683d9437d7f6088fe124a304e89efaf3ab529767c3d388f4c2b9ff0a82501",
+      "initial_unit_mode": "grapheme"
+    }
+  ]
+}
